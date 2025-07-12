@@ -8,8 +8,15 @@ import { Component } from '@angular/core';
 })
 export class ThemeTogglerComponent {
   toggleTheme() {
-    const root = document.documentElement;
-    const current = root.getAttribute('data-theme');
-    root.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+    const html = document.documentElement;
+    const currentTheme = html.classList.contains('dark') ? 'dark' : 'light';
+    
+    if (currentTheme === 'dark') {
+      html.classList.remove('dark');
+      html.setAttribute('data-theme', 'light');
+    } else {
+      html.classList.add('dark');
+      html.setAttribute('data-theme', 'dark');
+    }
   }
 }
