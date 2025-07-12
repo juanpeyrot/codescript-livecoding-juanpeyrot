@@ -1,0 +1,53 @@
+<li
+  class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow p-5 border border-gray-100 dark:border-gray-700"
+>
+  <div class="flex flex-col h-full">
+    <div class="mb-3">
+      <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100">
+        {{ manufacturer().Mfr_Name }}
+      </h2>
+      <p class="text-sm text-gray-500 dark:text-gray-400">
+        {{ manufacturer().Country || 'Country Unknown' }}
+      </p>
+    </div>
+
+    <div class="mb-3">
+      <label class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 cursor-pointer">
+        <input
+          type="checkbox"
+          [checked]="showOnlyPrimary()"
+          (change)="toggleFilter()"
+          class="accent-blue-600 dark:accent-blue-400"
+        />
+        <span>Show only primary types</span>
+      </label>
+    </div>
+
+    <div class="mt-auto">
+      <p class="text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
+        Vehicle Types:
+      </p>
+
+      @if (filteredVehicleTypes.length > 0) {
+        <ul class="flex flex-wrap gap-2">
+          @for (vt of filteredVehicleTypes; track vt.Name) {
+            <li
+              class="px-3 py-1 rounded-full text-xs font-medium"
+              [class]="
+                vt.IsPrimary
+                  ? 'bg-blue-100 text-blue-700 dark:bg-blue-200 dark:text-blue-800'
+                  : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300'
+              "
+            >
+              {{ vt.Name }}
+            </li>
+          }
+        </ul>
+      } @else {
+        <p class="text-sm text-gray-400 dark:text-gray-500 italic">
+          No vehicle types to display
+        </p>
+      }
+    </div>
+  </div>
+</li>
